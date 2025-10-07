@@ -38,6 +38,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 <html>
 <head>
     <title>Update Course</title>
+    <link rel="stylesheet" href="UpdateCourse.css">
 </head>
 <body>
     <h1>Update Course</h1>
@@ -46,6 +47,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             <input type="text" name="course_name" value="<?= htmlspecialchars($course['CourseName']) ?>" required>
         </label><br><br>
         <button type="submit">Update</button>
+        <button type="button" onclick="window.location.href='Course.php'">Cancel</button>
     </form>
 </body>
 </html>
