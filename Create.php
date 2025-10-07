@@ -5,7 +5,15 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $db = new Database();
     $pdo = $db->connect();
 
-    // 1. Insert course if it doesn’t exist yet
+
+    $stmt = $pdo->prepare("SELECT student_id FROM students WHERE Email = ?");
+    $stmt->execute([$_POST['email']]);
+    $existingStudent = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    if ($existingStudent) {
+        die("❌ Error: This email is already registered. Please use another email.");
+    }
+
     $stmt = $pdo->prepare("SELECT CourseID FROM courses WHERE CourseName = ?");
     $stmt->execute([$_POST['course']]);
     $course = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -15,17 +23,17 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     } else {
         $stmt = $pdo->prepare("INSERT INTO courses (CourseName) VALUES (?)");
         $stmt->execute([$_POST['course']]);
-        $courseID = $pdo->lastInsertId(); // get the new CourseID
+        $courseID = $pdo->lastInsertId();
     }
 
-    // 2. Insert student linked to the course
-    $stmt = $pdo->prepare("INSERT INTO students (first_name, last_name, email, CourseID) VALUES (?, ?, ?, ?)");
+    $stmt = $pdo->prepare("INSERT INTO students (first_name, last_name, Email, CourseID) VALUES (?, ?, ?, ?)");
     $stmt->execute([$_POST['first_name'], $_POST['last_name'], $_POST['email'], $courseID]);
 
-    header("Location: index.php"); 
+    header("Location: Students.php"); 
     exit;
 }
 ?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -40,7 +48,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         <label>Email: <input type="email" name="email" required></label><br>
         <label>Course: <input type="text" name="course" required></label><br>
         <button type="submit">Save</button>
-        <button type="button" onclick="window.location.href='index.php'">Cancel</button>
+        <button type="button" onclick="window.location.href='Students.php'">Cancel</button>
     </form>
 </body>
 </html>

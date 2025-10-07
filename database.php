@@ -2,8 +2,8 @@
 class Database {
     private $host = "localhost";
     private $db_name = "School";
-    private $username = "root"; // or your MySQL user
-    private $password = "";     // put your password if any
+    private $username = "root"; 
+    private $password = "";     
     private $pdo;
 
     public function connect() {

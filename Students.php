@@ -3,9 +3,9 @@ session_start();
 require_once 'database.php';
 
 $db = new Database();
-$pdo = $db->connect();  // ✅ now using PDO
+$pdo = $db->connect(); 
 
-// Fetch students with their course
+
 $stmt = $pdo->query("
     SELECT s.student_id, s.first_name, s.last_name, s.Email, c.CourseName
     FROM students s
@@ -24,6 +24,8 @@ $students = $stmt->fetchAll(PDO::FETCH_ASSOC);
 <body>
     <h1>Students</h1>
     <button class="AddButton"onclick="window.location.href='Create.php'">Add Student</button>
+    <button class="Course"onclick="window.location.href='Course.php'">Course</button>
+    <button class="Course"onclick="window.location.href='Students.php'">Students</button>
 
     <table class="TableStudents"border="1">
         <thead>
@@ -44,12 +46,12 @@ $students = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     <td><?= htmlspecialchars($student['Email']) ?></td>
                     <td><?= htmlspecialchars($student['CourseName']) ?></td>
                     <td>
-                        <button onclick="window.location.href='Update.php?id=<?= $student['student_id'] ?>'">
+                        <button class="Action" onclick="window.location.href='Update.php?id=<?= $student['student_id'] ?>'">
                             Update
                         </button>
                     </td>
                     <td>
-                        <button onclick="if(confirm('Are you sure you want to delete this student?')) window.location.href='Delete.php?id=<?= $student['student_id'] ?>'">
+                        <button class="Action"onclick="if(confirm('Are you sure you want to delete this student?')) window.location.href='Delete.php?id=<?= $student['student_id'] ?>'">
                             Delete
                         </button>
                     </td>

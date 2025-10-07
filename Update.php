@@ -4,13 +4,13 @@ require_once 'database.php';
 $db = new Database();
 $pdo = $db->connect();
 
-// ✅ Get student ID from URL
+
 if (!isset($_GET['id'])) {
     die("No student ID provided!");
 }
 $student_id = $_GET['id'];
 
-// ✅ Fetch current student data
+
 $stmt = $pdo->prepare("
     SELECT s.student_id, s.first_name, s.last_name, s.Email, c.CourseName
     FROM students s
@@ -24,9 +24,9 @@ if (!$student) {
     die("Student not found!");
 }
 
-// ✅ If form submitted → update record
+
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    // Check if course exists
+    
     $stmt = $pdo->prepare("SELECT CourseID FROM courses WHERE CourseName = ?");
     $stmt->execute([$_POST['course']]);
     $course = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -39,7 +39,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $courseID = $pdo->lastInsertId();
     }
 
-    // ✅ Update student
     $stmt = $pdo->prepare("UPDATE students 
                            SET first_name = ?, last_name = ?, Email = ?, CourseID = ? 
                            WHERE student_id = ?");
