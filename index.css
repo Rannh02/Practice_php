@@ -1,0 +1,35 @@
+body{
+    font-size: 20px;
+}
+h1{
+    text-align: center;
+}
+.TableStudents{
+    margin-left: auto;
+    margin-right: auto;
+    width: 80%;
+    text-align: center;
+    align-items: center;
+}
+.AddButton{
+    background-color: lightpink;
+    margin-left: 10%;
+    font-size: 20px;
+}.AddButton:hover{
+    background-color: rgb(194, 139, 148);
+    cursor: pointer;
+}
+.Form{
+    background-color: lightslategray;
+    margin-left: 40%;
+    width: 20%;
+}
+button{
+    border-radius: 20px;
+    background-color: rgb(87, 232, 225);
+    font-size: 20px;
+}
+button:hover{
+    background-color: rgb(76, 145, 145);
+    cursor: pointer;
+}
